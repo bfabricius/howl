@@ -1,6 +1,8 @@
 # Howl
 Hypervised OWL build environment for audio DSP patch compilation and deployment
 
+![Howl Logo](https://github.com/bfabricius/howl/blob/master/images/howl.png)
+
 **NOTE: This documentation is not yet valid until the 0.1.x-experimental release. Until then you can use this software at your own risk.**
 
 Howl is a virtual build environment for compiling and deploying audio [](https://)DSP patches for [](https://)Rebel Technologies' programmable Open Ware Laboratory devices like the OWL Modular. The Howl cross compile environment and build tools are self contained in a virtual machine that is run using a Vagrant provider, in this case Virtualbox.
