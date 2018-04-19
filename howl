@@ -96,6 +96,7 @@ Builtin commands:
     compile     - compile an audio DSP patch
     run         - deploy and run an audio DSP patch on the connected OWL device
     listdevices - list any connected OWL device
+    listpatches - list audio dsp patch repository content
 
 For command-specific help: howl help <command>
 ENDHELP
@@ -165,6 +166,11 @@ command:listdevices() {
     fi
     info_report "Listing USB devices detected by Howl virtual machine"
     vagrant_ssh lsusb
+}
+
+command:listpatches() {
+    info_report "Listing Howl patches:"
+    echo "$(tree patches/)"
 }
 
 #------------------------------------------------------------------------------
