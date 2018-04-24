@@ -3,7 +3,9 @@ Hypervised OWL build environment for audio DSP patch compilation and deployment
 
 ![Howl Logo](https://github.com/bfabricius/howl/blob/master/images/howl.png)
 
-**NOTE: This documentation is not yet valid until the 0.1.x-experimental release. Until then you can use this software at your own risk.**
+Currently Released Version: v0.1.3-experimental
+
+**NOTE: This documentation is not yet complete until the 1.0.0-stable release and is work in progress. Until then functionality documented here might not be implemented yet or might not be working as expected allthough we do try to keep the latest development master branch working if possible.**
 
 Howl is a virtual build environment for compiling and deploying audio [](https://)DSP patches for [](https://)Rebel Technologies' programmable Open Ware Laboratory devices like the OWL Modular. The Howl cross compile environment and build tools are self contained in a virtual machine that is run using a Vagrant provider, in this case Virtualbox.
 
@@ -35,9 +37,9 @@ If howl has booted you will receive a confirmation. After this confirmation why 
 	$ ./howl test osx/mac-test-armgcc
 	$ ./howl test osx/mac-test-firmwaresender
 
-Should your tests be successfull you can go ahead and try compiling your first patch
+Should your tests be successfull you can go ahead and try compiling and run your first patch. With your OWL device connected, run
 
-	$ ./howl compile --language=cpp patches/cpp/GainPatch.hpp
+	$ ./howl build --name=Gain --lang=cpp --run cpp/GainPatch.hpp
 
 Once compilation is done you should get a confirmation. Power down Howl by running
 
@@ -47,4 +49,36 @@ Once compilation is done you should get a confirmation. Power down Howl by runni
 Howl can deploy compiled patches and run them on OWL Devices. Make sure your devices is powered and connected to your host computer via USB. If Howl is not running yet, start it and after it is running execute following command:
 	
 	$ ./howl listdevices
+
+If your OWL device is connected via USB and recognized by Howl, the output will give you system information on if it has been able to add your device properly.
+
+## Listing DSP Patches
+
+Howl can access a local folder that contains the DSP patch repository. Within the Howl source folder you can find the patch repository located at ./patches relative to the root source folder. The repository is structured into subfolders that are odered by DSP patch language, e.g. cpp, faust, pd or gen.
+If you want to install new patches simply copy them into the appropriate folders. Then run
+
+	$ ./howl listpatches
+
+to check if they were installed correctly. Only patches that have been installed properly in the Howl patch repository can be built and run by Howl.
+
+## Listing and Running Howl Tests
+
+All available Howl tests can be listed by running
+
+	$ ./howl test list
+
+If you want to run a test remember to pass the builtin test command the correct test repoistory location, e.g. for a test located in ./test/osx called mac-test-armgcc.sh run
+
+	$ ./howl test osx/mac-test-armgcc
+
+## Building C++ Patches
+
+To build a C++ DSP patch named "Gain" and installed in the Howl repository as cpp/GainPatch.hpp run
+
+	$ ./howl build --name=Gain --lang=cpp cpp/GainPatch.hpp
+
+To build and run this patch run
+
+	$ ./howl build --name=Gain --lang=cpp --run cpp/GainPatch.hpp
+
 

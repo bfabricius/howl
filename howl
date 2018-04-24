@@ -67,10 +67,10 @@ howl_version () {
 command:help() {
     if [[ $# != 0 ]]; then
         if ! has command $1; then
-            err \"$1\" is not a howl command
+            error_report "\"$1\" is not a howl command"
             command:help
         elif ! has help $1; then
-            err No help found for \"$1\"
+            error_report "No help found for \"$1\""
         else
             help:$1
         fi
@@ -79,10 +79,10 @@ command:help() {
 
 howl v$(howl_version) - Virtual build environment for compiling and running OWL polyglot DSP patches.
 
-Developed by Happy Thoughts Audio - http://www.htaudio.de
+Developed by Happy Thoughts Audio - https://www.htaudio.de
 
 This is the official Howl CLI tool to compile and run audio DSP patches on OWL devices.
-Please report any problems by creating a github issue at www.github/howl
+Please report any problems by creating a github issue at https://github.com/bfabricius/howl
 or sending an email to <support@htaudio.de>.
 
 usage: howl [builtin command] [arguments]
