@@ -240,7 +240,7 @@ command:build() {
 }
 
 help:build() {
-    echo "usage: build -l|--lang=<cpp|faust|pd|max> -n|--name=<dsp patch name> [-r|--run] <dsp patch repository path>"
+    echo "usage: build -l|--lang=<cpp|faust|pd|gen> -n|--name=<dsp patch name> [-r|--run] <dsp patch repository path>"
 }
 
 buildcpp() {
@@ -255,32 +255,6 @@ command:version() {
 #------------------------------------------------------------------------------
 # Option processing
 #
-
-# info "HOWL_PATCHTYPE configured to => ${PATCHTYPE}"
-# info "HOWL_PATCHNAME configured to => ${PATCHNAME}"
-
-# # The precedence for options is:
-# # 1. command-line arguments
-# # 2. environment variables
-# # 3. defaults
-
-# # Source the config file if it exists
-# DEFAULT_CONFIG=~/.howl
-# FINAL_CONFIG=${ARG_CONFIG-${HOWL_CONFIG-$DEFAULT_CONFIG}}
-
-# [[ -f "$FINAL_CONFIG" ]] && source "$FINAL_CONFIG"
-
-# # Set the docker image
-# DEFAULT_IMAGE=howl-container
-# FINAL_IMAGE=${ARG_IMAGE-${RPXC_IMAGE-$DEFAULT_IMAGE}}
-
-# # Set the docker run extra args (if any)
-# FINAL_ARGS=${ARG_ARGS-${HOWL_ARGS}}
-
-# # If we are not running via boot2docker
-# if [ -z $DOCKER_HOST ]; then
-#     USER_IDS="-e HOWL_UID=$( id -u ) -e HOWL_GID=$( id -g )"
-# fi
 
 if [[ $# == 0 ]]; then
     error_report "No howl command line specified."
