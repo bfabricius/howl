@@ -102,7 +102,7 @@ vagrant_vm_running() {
 }
 
 vagrant_ssh() {
-	vagrant ssh -c $1
+	vagrant ssh -c "${1}"
 }
 
 vagrant_validate() {

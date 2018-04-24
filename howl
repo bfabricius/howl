@@ -77,7 +77,7 @@ command:help() {
     else
         cat >&2 <<ENDHELP
 
-howl $(howl_version) - Virtual build environment for compiling and running OWL polyglot DSP patches.
+howl v$(howl_version) - Virtual build environment for compiling and running OWL polyglot DSP patches.
 
 Developed by Happy Thoughts Audio - http://www.htaudio.de
 
@@ -93,10 +93,10 @@ Builtin commands:
     stop        - stop howl virtual machine
     status      - get howl virtual machine status
     test        - run a test script to test howl virtual environment
-    compile     - compile an audio DSP patch
-    run         - deploy and run an audio DSP patch on the connected OWL device
+    build       - build and run an audio DSP patch for OWL
     listdevices - list any connected OWL device
     listpatches - list audio dsp patch repository content
+    version     - display verson information
 
 For command-specific help: howl help <command>
 ENDHELP
@@ -150,7 +150,7 @@ command:test() {
 }
 
 help:test() {
-    echo "usage: howl test [list|<platform/testname>]"
+    echo "usage: test [list|<platform/testname>]"
 }
 
 command:listdevices() {
@@ -169,8 +169,87 @@ command:listdevices() {
 }
 
 command:listpatches() {
-    info_report "Listing Howl patches:"
+    info_report "Listing Howl patch repository contents:"
     echo "$(tree patches/)"
+}
+
+command:build() {
+
+    if [[ $# -eq 0 ]]; then
+        info_report "Missing build options."
+        help:build
+        exit 1
+    fi
+
+    PATCH_LANG=''
+    PATCH_NAME=''
+    RUN_PATCH=0
+
+    for arg in $@; do
+        case $arg in
+            -l=*|--lang=*)
+                PATCH_LANG="${arg#*=}"
+                # info_report "Patch language selected is ${PATCH_LANG}"
+                shift
+                ;;
+            -n=*|--name=*)
+                PATCH_NAME="${arg#*=}"
+                # info_report "Patch name set is ${PATCH_NAME}"
+                shift
+                ;;
+            -r|--run)
+                RUN_PATCH=1
+                # info_report "Patch will be deployed and run after build process."
+                shift
+                ;;
+            -*)
+                error_report "Unkown command line argument ${arg}"
+                exit 1
+                ;;
+            *)
+                break
+                ;;
+        esac        
+    done
+
+
+    case $PATCH_LANG in
+        cpp|faust|gen|pd)
+            PATCH_PATH="/howl/patches/${1}"
+            # PATCH_NAME="${2}"
+            ;;
+        *)
+            error_report "No patch patch language option set or patch language not supported."
+            exit 1
+    esac
+
+    info_report "Following compile options have been set:"
+    echo "==========================================================================="
+    echo -e "DSP patch name:\t\t\t${PATCH_NAME}"
+    echo -e "DSP patch language:\t\t${PATCH_LANG}"
+    echo -e "Howl patch repository path:\t${PATCH_PATH}"
+    echo -e "Run DSP patch:\t\t\t${RUN_PATCH}"
+    echo "==========================================================================="
+
+    if [[ "${PATCH_LANG}" = "cpp" ]]; then
+        buildcpp $PATCH_PATH $PATCH_NAME $RUN_PATCH
+    fi
+
+    # compilecpp $LANG $PATCH_PATH
+
+}
+
+help:build() {
+    echo "usage: build -l|--lang=<cpp|faust|pd|max> -n|--name=<dsp patch name> [-r|--run] <dsp patch repository path>"
+}
+
+buildcpp() {
+    info_report "Building cpp patch ${2} at Howl patch repository path ${2}. Follow Howl virtual machine build output below:"
+    vagrant_ssh "/vagrant/scripts/buildcpp.sh ${1} ${2} ${3}"
+}
+
+command:version() {
+    echo "howl v$(howl_version) - Virtual build environment for compiling and running OWL polyglot DSP patches"
 }
 
 #------------------------------------------------------------------------------
@@ -204,7 +283,7 @@ command:listpatches() {
 # fi
 
 if [[ $# == 0 ]]; then
-    err "No howl command line specified."
+    error_report "No howl command line specified."
     command:help
     exit
 fi
@@ -218,8 +297,8 @@ case $1 in
            command:$1 "${@:2}" # array slice skipping first element
            exit $?
         fi
-        info "No built-in command found: \"$1\""
-        info "Defaulting to calling command line to be executed in image: \"$@\""
+        info_report "No built-in command found: \"$1\""
+        # info "Defaulting to calling command line to be executed in image: \"$@\""
         ;;
 
 esac
