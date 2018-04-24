@@ -52,6 +52,15 @@ Howl can deploy compiled patches and run them on OWL Devices. Make sure your dev
 
 If your OWL device is connected via USB and recognized by Howl, the output will give you system information on if it has been able to add your device properly.
 
+## Getting Help
+
+	$ ./howl help
+	$ ./howl help <command-name>
+
+Example of how to get help for the build command:
+
+	$ ./howl help build
+
 ## Listing DSP Patches
 
 Howl can access a local folder that contains the DSP patch repository. Within the Howl source folder you can find the patch repository located at ./patches relative to the root source folder. The repository is structured into subfolders that are odered by DSP patch language, e.g. cpp, faust, pd or gen.
