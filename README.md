@@ -1,7 +1,7 @@
 # Howl
 Hypervised OWL build environment for audio DSP patch compilation and deployment
 
-Currently Released Version: v0.1.3-experimental
+Currently [Released](https://github.com/bfabricius/howl/releases) Version: v0.1.3-experimental
 
 ![Howl Logo](https://github.com/bfabricius/howl/blob/master/images/howl.png)
 
