@@ -74,7 +74,7 @@ Example of how to get help for the build command:
 	$ ./howl help build
 
 ## Getting New Patches
-OWL DSP Patches are compiled for the [https://github.com/pingdynasty/owl](Open Ware Laboratory API) and can be written in different languages. Aside from designing your own patches you can select from the [https://www.rebeltech.org/patch-library/patches/latest](many available patches maintained online).
+OWL DSP Patches are compiled for the [https://github.com/pingdynasty/owl](Open Ware Laboratory API) and can be written in different languages. Aside from designing your own patches you can select from the [many available patches maintained online](https://www.rebeltech.org/patch-library/patches/latest).
 
 ## Installing Patches
 New patches must be installed to the Howl patch repository folder. You can do this by copying the files to a specific path relative to the project root folder depending on the language it is written in:
