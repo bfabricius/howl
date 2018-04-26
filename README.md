@@ -50,7 +50,7 @@ Once compilation is done you should get a confirmation. Power down Howl by runni
 	$ ./howl stop
 
 ## Connecting OWL Devices
-Howl can deploy compiled patches and run them on OWL Devices. Make sure your devices is powered and connected to your host computer via USB. If Howl is not running yet, start it and after it is running execute following command:
+Howl can deploy compiled patches and run them on OWL Devices. Make sure your device is powered and connected to your host computer via USB. If Howl is not running yet, start it and after it is running execute following command:
 	
 	$ ./howl listdevices
 
