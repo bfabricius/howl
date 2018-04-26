@@ -50,9 +50,17 @@ Once compilation is done you should get a confirmation. Power down Howl by runni
 	$ ./howl stop
 
 ## Connecting OWL Devices
-Howl can deploy compiled patches and run them on OWL Devices. Make sure your devices is powered and connected to your host computer via USB. If Howl is not running yet, start it and after it is running execute following command:
+Howl can deploy compiled patches and run them on OWL Devices. Make sure your device is powered and connected to your host computer via USB. If Howl is not running yet, start it and after it is running execute following command:
 	
 	$ ./howl listdevices
+
+Example Output
+
+	$ ./howl listdevices
+	[INFO] Listing USB devices detected by Howl virtual machine
+	Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+	Bus 002 Device 002: ID 1209:dada InterBiometrics Rebel Technology OWL
+	Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
 
 If your OWL device is connected via USB and recognized by Howl, the output will give you system information on if it has been able to add your device properly.
 
@@ -106,7 +114,7 @@ If you are enjoying this software please support us by
 * spreading the word about Howl in the community and writing about it (let us know! :) )
 * contributing to Howl -> add something cool and create a pull request
 * following Happy Thoughts Audio
-  * [https://www.htaudio.de](Our Website)
+  * [Our Website](https://www.htaudio.de)
   * [Instgram/_htaudio](https://www.instagram.com/_htaudio/)
   * [facebook/happythoughtsaudio](https://www.facebook.com/happythoughtsaudio)
   * [twitter/_htaudio](https://twitter.com/_htaudio)
