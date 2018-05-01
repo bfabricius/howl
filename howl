@@ -96,6 +96,8 @@ Builtin commands:
     build       - build and run an audio DSP patch for OWL
     listdevices - list any connected OWL device
     listpatches - list audio dsp patch repository content
+    readconfig  - read and print the howl configuration to std out
+    configure   - configure howl config export variables, e.g. HEAVYTOKEN
     version     - display verson information
 
 For command-specific help: howl help <command>
@@ -233,6 +235,8 @@ command:build() {
 
     if [[ "${PATCH_LANG}" = "cpp" ]]; then
         buildcpp $PATCH_PATH $PATCH_NAME $RUN_PATCH
+    elif [[ "${PATCH_LANG}" = "pd" ]]; then
+        buildpd $PATCH_PATH $PATCH_NAME $RUN_PATCH
     fi
 
     # compilecpp $LANG $PATCH_PATH
@@ -248,8 +252,43 @@ buildcpp() {
     vagrant_ssh "/vagrant/scripts/buildcpp.sh ${1} ${2} ${3}"
 }
 
+buildpd() {
+    info_report "Building pd patch ${2} at Howl patch repository path ${2}. Follow Howl virtual machine build output below:"
+    vagrant_ssh "/vagrant/scripts/buildpd.sh ${1} ${2} ${3}"
+}
+
 command:version() {
     echo "howl v$(howl_version) - Virtual build environment for compiling and running OWL polyglot DSP patches"
+}
+
+command:readconfig() {
+    if [[ -f ./scripts/howl/exports.sh ]]; then
+        info_report "======== HOWL CONFIGURATION EXPORTS ========"
+        while read line ; do
+            echo $line
+        done < "./scripts/howl/exports.sh"
+        echo ""
+    else
+        error_report "Could not find exports.sh config file."
+    fi
+}
+
+command:configure() {
+    if [[ $# -ne 2 ]]; then
+        error_report "usage: config <variable naeme> <value>"
+        exit 1
+    fi
+    if [[ -f ./scripts/howl/exports.sh ]]; then
+        info_report "Found exports.sh config file."
+        # sed -i 's/${1}=.*/${1}=${2}/' ./script/howl/exports.sh
+        sedparam=s/${1}=.*/${1}=${2}/
+        sed -i ".bak" "${sedparam}" ./scripts/howl/exports.sh
+        info_report "Configured ${1}=${2}. Current configuration:"
+        echo ""
+        command:readconfig
+    else
+        error_report "Could not find exports.sh config file."
+    fi
 }
 
 #------------------------------------------------------------------------------
@@ -259,7 +298,7 @@ command:version() {
 if [[ $# == 0 ]]; then
     error_report "No howl command line specified."
     command:help
-    exit
+    exit        
 fi
 
 case $1 in
