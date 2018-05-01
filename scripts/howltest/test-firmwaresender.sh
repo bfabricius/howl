@@ -8,7 +8,7 @@ echo 'Howl Test: Check for firmwaresender tool'
 echo '=================================='
 
 # check if arm-gcc is installed on howl properly
-source /vagrant/scripts/exports.sh
+source /howl/scripts/exports.sh
 
 which firmwaresender \
 	&& echo '==================================' \

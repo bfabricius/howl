@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder "./patches", "/howl/patches"
   config.vm.synced_folder "./scripts/howltest", "/howl/tests"
-  config.vm.synced_folder "./scripts/howl", "/vagrant/scripts"
+  config.vm.synced_folder "./scripts/howl", "/howl/scripts"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.

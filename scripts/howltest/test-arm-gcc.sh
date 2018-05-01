@@ -8,7 +8,7 @@ echo 'Howl Test: Check for arm gcc compiler'
 echo '=================================='
 
 # check if arm-gcc is installed on howl properly
-source /vagrant/scripts/exports.sh
+source /howl/scripts/exports.sh
 
 which arm-none-eabi-gcc \
 	&& echo '==================================' \
