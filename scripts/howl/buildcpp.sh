@@ -6,7 +6,7 @@ set -e
 
 if [[ $# -ne 3 ]]; then
 	echo "Script accepts exactly 2 arguments."
-	echo "Usage: buildcpp <patch repository path> <patch nane>"
+	echo "Usage: buildcpp <patch repository path> <patch name>"
 	exit 1
 fi
 
@@ -26,7 +26,7 @@ if [[ -f $1 ]]; then
 		make PATCHNAME="${2}"
 	fi
 	cd /home/vagrant
-	echo "Successfully compiled cpp patch ${2}"
+	echo "Successfully compiled CPP patch ${2}"˝
 fi
 
 # echo $?
