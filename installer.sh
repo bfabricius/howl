@@ -21,6 +21,26 @@ is_virtualbox_installed() {
 
 information
 
+if [[ $# -ge 1 ]]; then
+    for arg in $@; do
+        case $arg in
+            -p|--patch)
+                install_phase "Vagrant Patch Image"
+				$HOWL_ROOT/scripts/install-patchimage.sh $HOWL_ROOT
+                # info_report "Patch language selected is ${PATCH_LANG}"
+                exit $?
+                ;;
+            -*)
+                error_report "Unkown command line argument ${arg}"
+                exit 1
+                ;;
+            *)
+                break
+                ;;
+        esac        
+    done
+fi
+
 # test if vagrant vbguest plugin is installed
 install_phase "HYPERVISOR"
 echo "Testing if virtualbox is installed."
