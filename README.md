@@ -37,11 +37,11 @@ After the installer has ensured you are running the correct dependencies and has
 	
 	$ ./howl start
 
-If you encounter an error message claiming shared folder cannot be mounted automatically (this is a bug in vagrant atm) please run
+If you encounter an error message claiming shared folders cannot be mounted automatically (this is a bug in vagrant atm) please run
 
 	$ ./installer -p
 
-now to fix the issues. The installer will process to connet to the virtual machine and run a script on it to fix the issue. During this process the installer might ask you to add a new SSH host key to your system, type "yes" and hit enter. Then the installer will ask for the password for user "vagrant". Type "vagrant" and hit enter. The installer will then login to the VM and fix the issue. After that restart howl by stopping and the starting again.
+now to fix the issues. The installer will attempt connet to the virtual machine and run a script on it to fix the issue. During this process the installer might ask you to add a new SSH host key to your system, type "yes" and hit enter. Then the installer will request a password for user "vagrant". Type "vagrant" and hit enter. The installer will then login to the VM and fix the issue. After the installer is finished restart howl by stopping and the starting again.
 
 Once howl has booted you will receive a confirmation. After this confirmation why not run some tests to see if everything is working as expected
 
