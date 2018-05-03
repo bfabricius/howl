@@ -98,7 +98,7 @@ Builtin commands:
     listpatches - list audio dsp patch repository content
     readconfig  - read and print the howl configuration to std out
     configure   - configure howl config export variables, e.g. HEAVYTOKEN
-    update      - check for howl virtual box updates and install if available
+    boxupdate   - check for howl virtual box updates and install if available
     boxversion  - display howl virtual box versioning information
     version     - display verson information
 
@@ -293,8 +293,13 @@ command:configure() {
     fi
 }
 
-command:update() {
-    info_report "Running howl update. Make sure howl is not running for the updater to work properly."
+command:boxupdate() {
+    info_report "Running howl update. Checking if howl is running."
+    running=$(vagrant_vm_running)
+    if [[ "$running" = "true" ]]; then
+        error_report "Howl is running. Please stop howl and then run the update again."
+        exit 1
+    fi
     read -p "Do you want to check for updates? (yY/nN) "  -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         info_report "Checking for available updates on vagrant cloud"
