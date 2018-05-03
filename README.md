@@ -80,6 +80,15 @@ Example of how to get help for the build command:
 
 	$ ./howl help build
 
+## Updating Howl CLI and Virtual Machine to a new Version
+With every new release it makes sense to update Howl. The Howl command line client can be update by downloading the latest release archive and copying the new release over the old one. Make sure to backup your configuration by copying ./scripts/howl/exports.sh to a safe location. 
+
+To update the virtual machine to the latest release make sure you stop howl and run the howl box update command
+
+	$ ./howl boxupdate
+
+Boxupdate will check for the latest virtual machine images released on vagrant cloud and then prompt you to confirm installing the new image. After the image has been downloaded and installed the update mechanism will prompt you to confirm if it should swap the old virtual machine for the new one. If you confirm this the images will be swapped and after that you can start your new version of howl by calling howl start.
+
 ## Getting New Patches
 OWL DSP Patches are compiled for the [Open Ware Laboratory API](https://github.com/pingdynasty/owl) and can be written in different languages. Aside from designing your own patches you can select from the [many available patches maintained online](https://www.rebeltech.org/patch-library/patches/latest).
 
