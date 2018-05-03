@@ -115,6 +115,8 @@ You can configure any of the variables by calling
 
 	$ ./howl configure <variable name> <value>
 
+Note: Most of the preconfigured settings should work fine for your, if you do change anything beware that a misconfiguration can cause howl commands to fail when being used. ./howl configure will create a backup file of your configuration with the extension .bak in the directory ./scripts/howl for safety.
+
 ## Building C++ Patches
 To build a C++ DSP patch that is named "Gain" and is installed in the Howl repository as cpp/GainPatch.hpp run the following command
 
