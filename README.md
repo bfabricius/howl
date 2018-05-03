@@ -1,7 +1,7 @@
 # Howl
 Hypervised OWL build environment for audio DSP patch compilation and deployment
 
-Currently [Released](https://github.com/bfabricius/howl/releases) Version: v0.1.3-experimental
+Currently [Released](https://github.com/bfabricius/howl/releases) Version: v0.1.5-experimental
 
 ![Howl Logo](https://github.com/bfabricius/howl/blob/master/images/howl.png)
 
@@ -16,8 +16,9 @@ Howl is developed with love by [Happy Thougths Audio](https://www.htaudio.de). T
 * Howl CLI tool to run compilation and deployment of polyglot audio DSP patches
 
 ## Supported DSP patch languages
-OWL patches can be written in c++, pd, faust or max/msp gen. Howl currently supports
+OWL patches can be written in c++, Pure Data (Pd), faust or max/msp gen. Howl currently supports
 * C++
+* Pd
 
 ## Supported Platforms
 At this point Howl has only been developed and tested for Mac OSX with Virtualbox. Porting this to other platforms and Vagrant providers should be striaght forward so please do fork this repository and create some pull requests for further platform support. We appreciate your support.
@@ -36,12 +37,18 @@ After the installer has ensured you are running the correct dependencies and has
 	
 	$ ./howl start
 
-If howl has booted you will receive a confirmation. After this confirmation why not run a test to see if everything is working as expected
+If you encounter an error message claiming shared folder cannot be mounted automatically (this is a bug in vagrant atm) please run
+
+	$ ./installer -p
+
+now to fix the issues. The installer will process to connet to the virtual machine and run a script on it to fix the issue. During this process the installer might ask you to add a new SSH host key to your system, type "yes" and hit enter. Then the installer will ask for the password for user "vagrant". Type "vagrant" and hit enter. The installer will then login to the VM and fix the issue. After that restart howl by stopping and the starting again.
+
+Once howl has booted you will receive a confirmation. After this confirmation why not run some tests to see if everything is working as expected
 
 	$ ./howl test osx/mac-test-armgcc
 	$ ./howl test osx/mac-test-firmwaresender
 
-Should your tests be successfull you can go ahead and try compiling and run your first patch. With your OWL device connected, run
+Should your tests be successfull you can go ahead and try compiling and running your first patch. With your OWL device connected, run
 
 	$ ./howl build --name=Gain --lang=cpp --run cpp/GainPatch.hpp
 
@@ -99,14 +106,46 @@ If you want to run a test remember to pass the builtin test command the correct 
 
 	$ ./howl test osx/mac-test-armgcc
 
+## Configuring Howl
+Howl has configuration settings that are exported to the environment of the virtual machine. You can list the current configuration with
+
+	$ ./howl readconfig
+
+You can configure any of the variables by calling
+
+	$ ./howl configure <variable name> <value>
+
 ## Building C++ Patches
-To build a C++ DSP patch that is named "Gain" and is installed in the Howl repository as cpp/GainPatch.hpp run
+To build a C++ DSP patch that is named "Gain" and is installed in the Howl repository as cpp/GainPatch.hpp run the following command
 
 	$ ./howl build --name=Gain --lang=cpp cpp/GainPatch.hpp
 
 To build and run this patch on your OWL device run
 
 	$ ./howl build --name=Gain --lang=cpp --run cpp/GainPatch.hpp
+
+## Building Pure Data Patches
+Make sure you have your computer hooked up to the internet. To compile Pd patches an online compiler called Heavy by Enzien Audio is used. You will have to make sure you create an account with Enzien Audio and create a project called "owl". See image below for reference:
+
+![Enzien Audio Project](https://github.com/bfabricius/howl/blob/master/images/EnzienProject.png)
+
+Once you have set up your project you will need to confiugure a user token to access the compiler. Your tokens are saved in your user settings. If you do not have a token yet, click "add token" and label the token "owl-upload". After that, copy your token into the clipboard. See the image below for an example of a token.
+
+![Enzien Audio Token](https://github.com/bfabricius/howl/blob/master/images/EnzienToken.png)
+
+To configure your token for Howl, now run
+
+	$ ./howl configure HEAVYTOKEN <paste your token here>
+
+Configure will list the configuration after making changes so you can double check your settings. After that you are ready to compile Pd patches in Howl.
+
+To build a Pd DSP patch that is named "HeavyOwl" and is installed in the Howl repository as pd/HeavyOwl.pd run the following command
+
+	$ ./howl build --name=HeavyOwl --lang=pd cpp/HeavyOwl.pd
+
+To build and run this patch on your OWL device run
+
+	$ ./howl build --name=HeavyOwl --lang=pd --run cpp/HeavyOwl.pd
 
 ## Support Us
 If you are enjoying this software please support us by
