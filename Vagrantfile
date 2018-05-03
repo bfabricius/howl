@@ -88,6 +88,6 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "file", source: "./arm-tlc/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2", destination: "/tmp/arm-tlc.tar.bz2"
   # config.vm.provision "file", source: "./tools/HowlFirmwareSender", destination: "/tmp/firmwaresender"
   # config.vm.provision "shell", path: "./scripts/install-howl-base.sh", privileged: true, env: {"ARM_TLC_PKG" => "arm-tlc.tar.bz2", "ARM_TLC_AR" => "/tmp/arm-tlc.tar.bz2", "ARM_TLC_TGT" => "/opt/howl-tlc/", "FWSNDR_BIN" => "/tmp/firmwaresender", "FWSNDR_TGT" => "/usr/local/bin/"}
-  # config.vm.provision "user-sw", type: "shell", path: "./scripts/install-howl-user-sw.sh", privileged: false, env: {"EXPORTS_SH" => "/vagrant/scripts/exports.sh", "TLC_TOOLROOT" => "/opt/howl-tlc/gcc-arm-none-eabi-7-2017-q4-major/bin"}
+  # config.vm.provision "user-sw", type: "shell", path: "./scripts/install-howl-user-sw.sh", privileged: false, env: {"EXPORTS_SH" => "/howl/scripts/exports.sh", "TLC_TOOLROOT" => "/opt/howl-tlc/gcc-arm-none-eabi-7-2017-q4-major/bin"}
 
 end

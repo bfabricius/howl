@@ -2,7 +2,7 @@
 
 set -e
 
-. /vagrant/scripts/exports.sh
+. /howl/scripts/exports.sh
 
 if [[ $# -ne 3 ]]; then
 	echo "Script accepts exactly 2 arguments."

@@ -83,7 +83,7 @@ vagrant_reload() {
 }
 
 vagrant_vm_status() {
-	local running=$(vagrant status | grep $ARCH_HOWL_BASE_BOX | grep running)
+	local running=$(vagrant status | egrep $ARCH_HOWL_BOX_REGEX | grep running)
 	if test "$running" = "" ; then
 		echo "Howl virtual machine not running"
 	else
@@ -93,7 +93,7 @@ vagrant_vm_status() {
 }
 
 vagrant_vm_running() {
-	local running=$(vagrant status | grep $ARCH_HOWL_BASE_BOX | grep running)
+	local running=$(vagrant status | egrep $ARCH_HOWL_BOX_REGEX | grep running)
 	if test "$running" = "" ; then
 		echo "false"
 	else

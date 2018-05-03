@@ -251,12 +251,12 @@ help:build() {
 
 buildcpp() {
     info_report "Building cpp patch ${2} at Howl patch repository path ${2}. Follow Howl virtual machine build output below:"
-    vagrant_ssh "/vagrant/scripts/buildcpp.sh ${1} ${2} ${3}"
+    vagrant_ssh "/howl/scripts/buildcpp.sh ${1} ${2} ${3}"
 }
 
 buildpd() {
     info_report "Building pd patch ${2} at Howl patch repository path ${2}. Follow Howl virtual machine build output below:"
-    vagrant_ssh "/vagrant/scripts/buildpd.sh ${1} ${2} ${3}"
+    vagrant_ssh "/howl/scripts/buildpd.sh ${1} ${2} ${3}"
 }
 
 command:version() {
@@ -303,8 +303,8 @@ command:boxupdate() {
     read -p "Do you want to check for updates? (yY/nN) "  -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         info_report "Checking for available updates on vagrant cloud"
-        update_available=$(vagrant box outdated)
-        if [[ -n $update_available ]]; then
+        update_available=$(vagrant box outdated | wc -l)
+        if [[ $update_available -lt 1 ]]; then
             info_report "Update found."
             read -p "Do you want to install the latest howl virtual box update?  (yY/nN) " -r
             if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -312,7 +312,7 @@ command:boxupdate() {
                 info_report "Running swap of virtual boxes."
                 read -p "Do you want to replace your old howl box with the new updated box? (yY/nN) "  -r
                 if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    vagrant box halt && vagrant box destroy && info_report "Your howl box has been updated. You can now run howl again."
+                    vagrant destroy && info_report "Your howl box has been updated. You can now run howl again."
                 fi
             else
                 exit $?
