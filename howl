@@ -303,8 +303,10 @@ command:boxupdate() {
     read -p "Do you want to check for updates? (yY/nN) "  -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         info_report "Checking for available updates on vagrant cloud"
+        update_text=$(vagrant box outdated)
         update_available=$(vagrant box outdated | wc -l)
-        if [[ $update_available -lt 1 ]]; then
+        if [[ $update_available -gt 1 ]]; then
+            echo $update_text
             info_report "Update found."
             read -p "Do you want to install the latest howl virtual box update?  (yY/nN) " -r
             if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -315,6 +317,7 @@ command:boxupdate() {
                     vagrant destroy && info_report "Your howl box has been updated. You can now run howl again."
                 fi
             else
+                echo $update_text
                 exit $?
             fi
         else
